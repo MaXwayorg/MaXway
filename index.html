@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaXway | Door-to-Door</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap
+" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="side-panel" class="ui-panel">
+<div class="header">
+<h1>MaXway</h1>
+<span class="badge" id="mode-badge">Plan Trip</span>
+</div>
+<div id="search-ui">
+<div class="input-group">
+<div class="dot start-dot"></div>
+<input type="text" id="start-input" placeholder="Start (e.g. House No, Street)"
+readonly>
+<div class="input-actions">
+<button class="icon-btn" onclick="locateUser()" title="GPS">📍</button>
+<button class="icon-btn" onclick="enableManualPin()" title="Pin">📌</button>
+</div>
+</div>
+<div id="manual-pin-msg" style="display:none;">👇 Click map to set exact House
+location.</div>
+<div class="input-group">
+<div class="dot end-dot"></div>
+<input type="text" id="dest-input" placeholder="Destination (e.g. 55 Paseo de
+Roxas)">
+<button class="search-btn" onclick="searchDestination()">🔍</button>
+</div>
+<ul id="results-list"></ul>
+<div id="route-card">
+<div class="transport-recommendation">
+<div class="transport-icon" id="trans-icon">Calculating...</div>
+<div class="transport-details">
+<span class="trans-label">Best Commute:</span>
+<strong id="trans-name">...</strong>
+</div>
+</div>
+<div class="time-cost-row">
+<div class="stat">
+<span class="label">Real Time</span>
+<span class="value" id="time-val">0 min</span>
+</div>
+<div class="stat">
+<span class="label">Fare</span>
+<span class="value price" id="cost-val">₱ 0</span>
+</div>
+</div>
+<div class="action-buttons">
+<button id="go-btn" onclick="startRealTimeNavigation()">🚀 START
+TRIP</button>
+<button id="sim-btn" onclick="startSimulation()">▶ Preview</button>
+</div>
+</div>
+</div>
+<div id="nav-ui" style="display: none;">
+<div class="nav-top-bar">
+<span class="nav-title">Current Trip</span>
+<button class="close-nav-btn" onclick="stopNavigation()">✕</button>
+</div>
+<div class="trip-header">
+<div class="trip-point">
+<span class="dot start-dot"></span>
+<span id="nav-start-addr" class="addr-text">Start Point</span>
+</div>
+<div class="trip-line"></div>
+<div class="trip-point">
+<span class="dot end-dot"></span>
+<span id="nav-end-addr" class="addr-text">Destination</span>
+</div>
+</div>
+<div class="divider"><span>Itinerary</span></div>
+<ul id="directions-list">
+</ul>
+<button class="exit-btn-panel" onclick="stopNavigation()">❌ End Trip</button>
+</div>
+</div>
+<div id="feedback-modal" class="modal-overlay" style="display: none;">
+<div class="modal-content">
+<h2>Trip Complete!</h2>
+<p>How was your experience?</p>
+<div class="likert-scale">
+<label><input type="radio" name="rating" value="1"> 😠</label>
+<label><input type="radio" name="rating" value="2"> 🙁</label>
+<label><input type="radio" name="rating" value="3"> 😐</label>
+<label><input type="radio" name="rating" value="4"> 🙂</label>
+<label><input type="radio" name="rating" value="5" checked> 🤩</label>
+</div>
+<textarea id="feedback-text" placeholder="Share your thoughts
+(optional)..."></textarea>
+<button class="submit-feedback-btn" onclick="submitFeedback()">Submit
+Feedback</button>
+</div>
+</div>
+<div id="map"></div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script
+src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
